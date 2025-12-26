@@ -1,24 +1,35 @@
-import { Hono } from 'hono'
+import { PrismaClient } from "@prisma/client/edge";
+import { withAccelerate } from "@prisma/extension-accelerate";
+import { ExecutionContext } from "hono";
 
-const app = new Hono()
+export interface Env{
+  DATABASE_URL:string
+}
 
-async function authMiddleware(c:any,next: any){
-  if(c.req.header("Authorization")){
-    // do validation
-    await next()
-  }
-  else{
-    return c.text("you don't have access!")
+export default {
+  async fetch(
+      request: Request,
+      env: Env,
+      ctx:ExecutionContext
+  ):Promise<Response>{
+      const prisma = new PrismaClient({
+        datasources: {
+          db: {
+            url: env.DATABASE_URL,
+          },
+        },
+      }).$extends(withAccelerate())
+      const res = await prisma.log.create({
+        data:{
+          level: "Info",
+          message: "hii",
+          meta:{
+            headers: JSON.stringify(request.headers)
+          }
+        }
+      })
+      console.log(JSON.stringify(res));
+
+      return Response.json(res);
   }
 }
-app.use(authMiddleware);
-app.post('/',authMiddleware,async (c) => {
-  const body = await c.req.json();
-
-  console.log(body);
-  console.log(c.req.header("Authorization"))
-  console.log(c.req.query("param"))
-  return c.text('Hello Hono!')
-})
-
-export default app

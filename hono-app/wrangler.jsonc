@@ -2,13 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hono-app",
   "main": "src/index.ts",
-  "compatibility_date": "2025-12-25"
+  "compatibility_date": "2025-12-25",
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  "vars": {
+    "DATABASE_URL":"prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19QM1R6MzZrWllxSEQ0MHRWRnZUWU0iLCJhcGlfa2V5IjoiMDFLREQ2S0ZLQVgzVkEzRkFYQkc3RzM1MkMiLCJ0ZW5hbnRfaWQiOiJiMmU4ZjAzODJmMjFlMWNlOTY2NzNiNDYwMWE4NmM3OWI0Nzk3ZTEyNzFmOTEyMWM4ZDhiNDkyNTVmZWJjODdmIiwiaW50ZXJuYWxfc2VjcmV0IjoiNmM1YjMxMGUtODM0NC00NDQ5LWE0MjktOWMzYTNhYWM1ZTA2In0.xJP-2XypXF_4j9EVxv4xJM8WBPG-EF7Y6VCKzEQKDy4"
+  },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",
